@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Average Crop Type Price per Quintal in 2023</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Average Crop Type Price per Quintal in 2023</h1>
+
+    <form method="POST" action="/">
+        <!-- State Dropdown -->
+        <label for="state">Select the state:</label>
+        <select id="state" name="state" onchange="this.form.submit()">
+            <option value="">-- Select State --</option>
+            {% for state in states %}
+                <option value="{{ state }}" {% if state == selected_state %} selected {% endif %}>{{ state }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- District Dropdown -->
+        <label for="district">Select the district:</label>
+        <select id="district" name="district" onchange="this.form.submit()">
+            <option value="">-- Select District --</option>
+            {% for district in districts %}
+                <option value="{{ district }}" {% if district == selected_district %} selected {% endif %}>{{ district }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Market Dropdown -->
+        <label for="market">Select the market:</label>
+        <select id="market" name="market" onchange="this.form.submit()">
+            <option value="">-- Select Market --</option>
+            {% for market in markets %}
+                <option value="{{ market }}" {% if market == selected_market %} selected {% endif %}>{{ market }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Commodity Dropdown -->
+        <label for="commodity">Select the commodity:</label>
+        <select id="commodity" name="commodity">
+            <option value="">-- Select Commodity --</option>
+            {% for commodity in commodities %}
+                <option value="{{ commodity }}" {% if commodity == selected_commodity %} selected {% endif %}>{{ commodity }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Submit Button -->
+        <button type="submit">Show Prices</button>
+    </form>
+
+    <!-- Display the Average Prices -->
+    {% if average_min_price is not none %}
+        <p>The average minimum price for {{ selected_commodity }} in {{ selected_market }} is: {{ average_min_price }}</p>
+        <p>The average maximum price for {{ selected_commodity }} in {{ selected_market }} is: {{ average_max_price }}</p>
+    {% endif %}
+</body>
+</html>
